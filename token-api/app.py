@@ -24,7 +24,7 @@ def googlesheets():
     print(res)
     content = res['Body']
     
-    json_obj = json.loads(content.read())
+    json_obj = json.load(content)
     
     
     # TODO implement
