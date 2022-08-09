@@ -15,23 +15,6 @@ def myauth(event):
         return AuthResponse(['*'], principal_id='id')
     return AuthResponse([], principal_id='user')
 
-@app.route('/s3',methods=['POST'], authorizer=myauth)
-def googlesheets():
-    bucket = 's3-test-googlesheets'
-    key = 'credentials.json'
-    
-    res = s3.get_object(Bucket=bucket, Key=key)
-    print(res)
-    content = res['Body']
-    
-    json_obj = json.load(content)
-    
-    
-    # TODO implement
-    return {
-        'statusCode': 200,
-        'body': json_obj
-    }
 
 
 @app.route('/dynamo',methods=['POST'], authorizer=myauth)
