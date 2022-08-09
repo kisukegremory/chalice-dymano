@@ -3,11 +3,11 @@ import boto3
 import json
 
 dynamodb = boto3.resource('dynamodb', region_name='sa-east-1')
-table = dynamodb.Table(name='TestTable')
+table = dynamodb.Table(name='Tokens')
 
 def create_table(dynamodb):
     table = dynamodb.create_table(
-        TableName = 'TestTable',
+        TableName = 'Tokens',
         KeySchema = [
             {
                 'AttributeName':'token',

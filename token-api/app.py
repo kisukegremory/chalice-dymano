@@ -17,11 +17,11 @@ def myauth(event):
 
 
 
-@app.route('/dynamo',methods=['POST'], authorizer=myauth)
+@app.route('/googlesheets',methods=['POST'], authorizer=myauth)
 def by_dynamo():
-    table = dynamodb.Table('googlesheets')
+    table = dynamodb.Table('Tokens')
     res = table.get_item(Key={'token': 'googlesheets'})
-    json_obj = res['Item']['json']
+    json_obj = res['Item']['data']
     
     # TODO implement
     return {
