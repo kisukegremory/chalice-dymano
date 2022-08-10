@@ -1,26 +1,21 @@
 from chalice import Chalice, AuthResponse
-import json
 import boto3
-
-
-
+import os
 
 app = Chalice(app_name='token-api-chalice')
-s3 = boto3.client('s3')
-dynamodb = boto3.resource('dynamodb', region_name='sa-east-1')
+dynamodb = boto3.resource('dynamodb')
 
 @app.authorizer()
 def myauth(event):
-    if event.token == 'allow':
+    if event.token == os.environ['api-key']:
         return AuthResponse(['*'], principal_id='id')
     return AuthResponse([], principal_id='user')
 
 
-
 @app.route('/token',methods=['POST'], authorizer=myauth)
 def by_dynamo():
-    table = dynamodb.Table('Tokens')
-    res = table.get_item(Key={'token': 'madoka'})
+    table = dynamodb.Table(os.environ['table_name'])
+    res = table.get_item(Key={'token': os.environ['token_name']})
     json_obj = res['Item']['data']
     
     # TODO implement

@@ -2,9 +2,10 @@
 import click
 import boto3
 import json
+import os
 from time import sleep
 
-TABLE_NAME = 'Tokens'
+TABLE_NAME = os.environ['table_name']
 
 
 def create_table(dynamodb):
